@@ -33,5 +33,5 @@ queueMethods.size = function(){
 };
 
 
-
+var queue = new Queue();
 
