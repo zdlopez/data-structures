@@ -5,15 +5,9 @@ var Stack = function() {
 
   someInstance.storage = {};
   someInstance.counter = 0;
-  extend(someInstance, stackMethods);
+  _.extend(someInstance, stackMethods);
 
   return someInstance;
-};
-
-var extend = function(to, from){
-  for(var key in from){
-    to[key] = from[key];
-  }
 };
 
 var stackMethods = {};

@@ -7,15 +7,9 @@ var Queue = function(){
   someInstance.storage = {};
   someInstance.counter = 0;
   someInstance.first = 0;
-  extend(someInstance, queueMethods);
+  _.extend(someInstance, queueMethods);
   return someInstance;
 
-};
-
-var extend = function(to, from){
-  for(var key in from){
-    to[key] = from[key];
-  }
 };
 
 
