@@ -1,56 +1,64 @@
 
 
-var Graph = function(node){
+var Graph = function(){
   this.graph = {};
-  this.node = node;
+  this.node;
   this.edges = [];
 };
 
 Graph.prototype.addNode = function(node){
-  this.edges.push(new Graph(node));
+  this.graph[node] = [];
+  this.node = node;
 };
 
 Graph.prototype.contains = function(node){
-  var flag = false;
-  if(this.node === node){
-    flag = true;
+  if(this.graph[node]){
+    return true;
   }
-  for(var i = 0; i < this.edges.length; i++){
-    flag = flag || this.edges[i].contains(node);
-  }
-  return flag;
+  return false;
 };
 
 Graph.prototype.removeNode = function(node){
-  //var flag = false;
-  if(this.node === node){
+    //loop
+
+    delete this.graph[node];
     delete this.node;
-  }
-  for(var i = 0; i < this.edges.length; i++){
-    this.edges[i].removeNode(node);
-  }
-  //return flag;
 };
 
 Graph.prototype.hasEdge = function(fromNode, toNode){
-  var flag = false;
-  if(this.node === node){
-    flag = true;
+  if(this.graph[fromNode].indexOf(toNode)>=0){
+    return true;
   }
-  for(var i = 0; i < this.edges.length; i++){
-    flag = flag || this.edges[i].contains(node);
-  }
-  return flag;
+  return false;
 };
 
 Graph.prototype.addEdge = function(fromNode, toNode){
-
+  if(this.contains(fromNode) && this.contains(toNode)){
+    this.graph[fromNode].push(toNode);
+    this.graph[toNode].push(fromNode);
+  }
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
+  for(var i = 0; i < this.graph[fromNode].length; i++){
+    if(this.graph[fromNode][i] === toNode){
+      this.graph[fromNode].splice(i, 1);
+    }
+  }
+  for(var i = 0; i < this.graph[toNode].length; i++){
+    if(this.graph[toNode][i] === fromNode){
+      this.graph[toNode].splice(i, 1);
+    }
+  }
 };
 
 Graph.prototype.forEachNode = function(cb){
+  //for(var key in this.graph){
+  //  cb(key);
+  //}
+  _.each(this.graph, function(value, key){
+    cb(key);
+  });
 };
 
 /*
