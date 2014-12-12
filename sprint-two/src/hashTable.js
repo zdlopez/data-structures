@@ -10,7 +10,6 @@ HashTable.prototype.insert = function(k, v){
   var bucket = [];
   objectStore.push(k);
   objectStore.push(v);
-  console.log(objectStore);
   bucket = objectStore;
   if(Array.isArray(retrievedObj)){
     if(Array.isArray(retrievedObj[0])){
@@ -28,8 +27,6 @@ HashTable.prototype.insert = function(k, v){
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var retrievedObj = this._storage.get(i);
-  console.log(k);
-  console.log(retrievedObj);
   if(Array.isArray(retrievedObj)){
     if(Array.isArray(retrievedObj[0])){
       for(var i = 0; i < retrievedObj.length; i++){
