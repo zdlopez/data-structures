@@ -8,17 +8,18 @@ HashTable.prototype.insert = function(k, v){
   var retrievedObj = this._storage.get(i);
   var objectStore = [];
   var bucket = [];
-  objectStore[0] = k;
-  objectStore[1] = v;
+  objectStore.push(k);
+  objectStore.push(v);
+  console.log(objectStore);
   bucket = objectStore;
-  if(retrievedObj !== undefined){
-    if(retrievedObj[0][0] !== undefined){
+  if(Array.isArray(retrievedObj)){
+    if(Array.isArray(retrievedObj[0])){
       retrievedObj.push(objectStore);
       bucket = retrievedObj;
     }else{
       bucket = [];
-      retrievedObj.push(objectStore);
-      bucket = retrievedObj;
+      bucket.push(retrievedObj);
+      bucket.push(objectStore);
     }
   }
   this._storage.set(i, bucket);
@@ -27,8 +28,18 @@ HashTable.prototype.insert = function(k, v){
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var retrievedObj = this._storage.get(i);
-  if(retrievedObj !== null){
-    return retrievedObj[k];
+  console.log(k);
+  console.log(retrievedObj);
+  if(Array.isArray(retrievedObj)){
+    if(Array.isArray(retrievedObj[0])){
+      for(var i = 0; i < retrievedObj.length; i++){
+        if(retrievedObj[i][0] === k){
+          return retrievedObj[i][1];
+        }
+      }
+    }else{
+      return retrievedObj[1];
+    }
   }
   return null;
 };
