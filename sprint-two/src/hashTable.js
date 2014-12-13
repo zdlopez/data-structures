@@ -51,14 +51,11 @@ HashTable.prototype.remove = function(k){
       retrievedObj.splice(foundIndex, 1);
       this._storage.set(i,retrievedObj);
       this._counter--;
-      if((this._counter/this._limit)*100<=25){
+      if((this._counter/this._limit)*100<25){
         this.rehash(0.5);
       }
-    }else{
-      return null;
     }
-  } else {
-    return null;
+  return null;
   }
 };
 
