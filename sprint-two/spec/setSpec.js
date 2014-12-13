@@ -18,6 +18,22 @@ describe('set', function() {
     expect(set.contains('Susan Sarandon')).to.equal(true);
   });
 
+it('should add numbers to a set', function(){
+    set.add(5);
+    set.add(6);
+    expect(set.contains(5)).to.equal(true);
+    expect(set.contains(6)).to.equal(true);
+  });
+
+it('should add functions and objects to a set', function(){
+    var testFunc = function(){};
+    var testObj = {};
+    set.add(testFunc);
+    set.add(testObj);
+    expect(set.contains(testFunc)).to.equal(true);
+    expect(set.contains(testObj)).to.equal(true);
+  });
+
   it('should remove values from a set', function(){
     set.add("Mel Gibson");
     set.remove("Mel Gibson");
