@@ -2,7 +2,7 @@ describe('tree', function() {
   var tree;
 
   beforeEach(function() {
-    tree = Tree();
+    tree = Tree(99);
   });
 
   it('should have methods named "addChild" and "contains", and a property named "value"', function() {
@@ -14,6 +14,11 @@ describe('tree', function() {
   it('should add children to the tree', function() {
     tree.addChild(5);
     expect(tree.children[0].value).to.equal(5);
+  });
+
+  it('should return true that the tree has parent nodes', function(){
+    tree.addChild(5);
+    expect(tree.children[0].parent.value).to.equal(tree.value);
   });
 
   it('should return true for a value that the tree contains', function(){
@@ -40,5 +45,30 @@ describe('tree', function() {
     expect(tree.contains(7)).to.equal(true);
     expect(tree.contains(8)).to.equal(true);
   });
+
+  it('should correctly remove from parent target children(tree)', function(){
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.children[0].addChild(7);
+    tree.children[1].addChild(8);
+    tree.removeFromParent(6);
+    expect(tree.contains(6)).to.equal(false);
+    expect(tree.contains(8)).to.equal(false);
+  });
+
+  it('should log the values on each tree', function(){
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.addChild(88);
+    tree.children[0].addChild(7);
+    tree.children[1].addChild(8);
+    var array = [];
+    var func = function(value){ array.push(value); };
+    tree.traverse(func);
+    console.log(array);
+    expect(array).to.eql([99,5,7,6,8,88]);
+
+  });
+
 
 });
